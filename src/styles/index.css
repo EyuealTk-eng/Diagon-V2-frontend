@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* Diagon design tokens — warm cream, soft white and muted clay (spec section 3). */
+@theme {
+  --color-cream: #f6f1e8;
+  --color-paper: #fffcf7;
+  --color-clay: #d98b68;
+  --color-clay-dark: #b9694a;
+  --color-clay-soft: #f3dccf;
+  --color-ink: #263746;
+  --color-sand: #e9ded0;
+  --color-muted: #6f7779;
+  --color-sage: #647c6a;
+  --color-sage-soft: #e3eae2;
+  --color-danger: #a8443a;
+
+  --font-sans: "Inter", "Noto Sans Ethiopic", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", "Noto Sans Ethiopic", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+  --shadow-soft: 0 1px 2px rgb(38 55 70 / 0.05), 0 6px 20px -8px rgb(38 55 70 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(38 55 70 / 0.06), 0 14px 32px -12px rgb(38 55 70 / 0.22);
+}
+
+@layer base {
+  html {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply font-sans antialiased min-h-dvh;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-clay);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  /* Amharic script reads better slightly larger with looser leading. */
+  html[lang="am"] body {
+    line-height: 1.65;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-paper rounded-[var(--radius-card)] shadow-[var(--shadow-soft)] border border-sand/70;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full bg-sand/70 px-3 py-1 text-sm text-ink;
+  }
+  .field-input {
+    @apply w-full rounded-xl border border-sand bg-paper px-3.5 py-2.5 text-ink placeholder:text-muted/70
+      focus:border-clay focus:outline-none focus:ring-2 focus:ring-clay/30 disabled:opacity-60;
+  }
+  select.field-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236F7779' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px;
+  }
+  .field-input[aria-invalid="true"] {
+    @apply border-danger ring-2 ring-danger/20;
+  }
+}
